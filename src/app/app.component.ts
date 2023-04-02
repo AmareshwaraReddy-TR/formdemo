@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component ,OnInit} from '@angular/core';
+import {FormControl,FormGroup,Validators,FormBuilder} from '@angular/forms'
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,25 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'login-page';
+  registerForm:any=FormGroup;
+  submitted=false;
+  constructor(private formBuilder:FormBuilder){}
+
+  get f(){return this.registerForm.controls;}
+
+  onSubmit(){
+    this.submitted=true;
+    if(this.registerForm.invalid){
+      return;
+    }
+    if(this.submitted){
+      alert("Great!!");
+    }
+  }
+  ngOnInIt(){
+    this.registerForm=this.formBuilder.group({
+      email:['',[Validators.required,Validators.email]],
+      password:['',[Validators.required]]
+    });
+  }
 }
